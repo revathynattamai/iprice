@@ -1,6 +1,7 @@
 const fs = require('fs');
 const ConvertString = require('./index');
 const convertor = new ConvertString("hello world");
+jest.mock('fs');
 
 test('Upper Case', () => {
     expect(convertor.toUpperCase()).toEqual('HELLO WORLD');
@@ -30,15 +31,17 @@ test('Alternate Case for more than one space', () => {
     expect(convertor.toAlternateCase()).toEqual('hE Ll o wO Rl d');
 });
 
-test('CSV File resolve', async () => {
-    expect(await convertor.createCSVFile()).toEqual('success');
+test('CSV File resolve', () => {
+    fs.writeFile = jest.fn().mockImplementation((file, CSVData, cb) => cb(false));
+    expect(() => convertor.createCSVFile()).not.toThrowError();
 });
 
-test('CSV File reject', async () => {
-    fs.writeFile = jest.fn((a, b, callback) => { return callback("Failed") });
-    try {
-        await convertor.createCSVFile()
-    } catch (err) {
-        expect(err).toEqual("Failed")
-    }
+test('CSV File reject', () => {
+    fs.writeFile = jest.fn().mockImplementation((file, CSVData, cb) => cb(true))
+    expect(() => convertor.createCSVFile()).toThrowError();
+})
+
+test('CSV File resolve', () => {
+    fs.writeFile = jest.fn().mockImplementation((file, CSVData, cb) => cb(false));
+    expect(() => convertor.createCSVFile()).not.toThrowError();
 });

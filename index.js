@@ -23,11 +23,9 @@ class ConvertString {
 
     createCSVFile() {
         const CSVData = this.data.split("").join(",");
-        return new Promise((resolve, reject) => {
             fs.writeFile('output.csv', CSVData, (err) => {
-                if (err) reject(err);
-                else resolve("success");
-            })
+                if (err) throw new Error(err);
+                else console.log("CSV created!")
         })
     }
 }
@@ -35,9 +33,4 @@ module.exports = ConvertString;
 let a = new ConvertString("hello")
 console.log(a.toUpperCase());
 console.log(a.toAlternateCase());
-try {
-    a.createCSVFile();
-    console.log("CSV created!")
-} catch (err) {
-    console.log(err)
-}
+a.createCSVFile();

@@ -1,8 +1,27 @@
-The definition of the functionality is in Tech_Assessment.pdf.
-This can be implemented in function or class based component.
-In the question it is specifically mentioned to use OOPS concept. So you can take class based component.
-Tech stack - JS, Node JS, JEST.
-To install the dependencies - npm install.
-Run the task - npm start.
-To run the test - npm run test.
-To run the test coverage - npm run coverage.
+## How to run
+
+### Install dependencies
+
+```shell
+npm install
+```
+
+### Run the application
+
+```shell
+npm start
+```
+
+### Run unit tests
+
+```shell
+npm test
+```
+
+## Choice of tech stack
+
+I used Nodejs (v14) to implement this and jest to run the unit tests.
+
+## Things to improve
+
+- It only caters to string inputs.
